@@ -132,6 +132,12 @@ RSpec.describe TicTacToeBoard do
       end
     end
 
+        positions = [
+          'o', 'x', 'o',
+          'o', 'x', 'x',
+          'x', 'o', nil,
+        ]
+
     context "cat's game" do
       it 'returns nil' do
         positions = [
