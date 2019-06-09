@@ -1,63 +1,4 @@
-require 'pry'
-
-class TicTacToeBoardRow
-  def initialize(positions)
-    @positions = positions
-  end
-
-  def to_s
-    @positions.map do |value|
-      value == nil ? ' ' : value
-    end.map(&:upcase).join(' | ')
-  end
-end
-
-class TicTacToeBoard
-  WINNING_CONFIGURATIONS = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ]
-
-  def initialize(positions)
-    @positions = positions
-
-    @rows = positions.each_slice(3).to_a.map do |p|
-      TicTacToeBoardRow.new(p)
-    end
-  end
-
-  def to_s
-    @rows.map(&:to_s).join("\n")
-  end
-
-  def winner
-    %w(X O).each do |mark|
-      return mark if has_winning_configuration?(mark)
-    end
-  end
-
-  private
-
-  def has_winning_configuration?(mark)
-    WINNING_CONFIGURATIONS.each do |indices|
-      return true if all_indices_match?(mark, indices)
-    end
-    false
-  end
-
-  def all_indices_match?(mark, indices)
-    indices.each do |index|
-      return false unless @positions[index] == mark.downcase
-    end
-    true
-  end
-end
+require_relative './tic_tac_toe_board'
 
 RSpec.describe TicTacToeBoard do
   describe '#to_s' do
@@ -188,6 +129,19 @@ RSpec.describe TicTacToeBoard do
 
         board = TicTacToeBoard.new(positions)
         expect(board.winner).to eq('O')
+      end
+    end
+
+    context "cat's game" do
+      it 'returns nil' do
+        positions = [
+          'o', 'x', 'o',
+          'x', 'o', 'o',
+          'x', 'o', 'x',
+        ]
+
+        board = TicTacToeBoard.new(positions)
+        expect(board.winner).to be nil
       end
     end
   end
