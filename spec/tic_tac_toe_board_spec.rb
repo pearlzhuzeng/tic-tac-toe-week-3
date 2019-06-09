@@ -1,4 +1,4 @@
-require_relative './tic_tac_toe_board'
+require_relative '../app/tic_tac_toe_board'
 
 RSpec.describe TicTacToeBoard do
   describe '#to_s' do
