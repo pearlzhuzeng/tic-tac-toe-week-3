@@ -1,6 +1,20 @@
 require_relative '../lib/interface'
 
 RSpec.describe Interface do
+  context 'marking X' do
+    it 'shows the board' do
+      script = [
+        { 'Move for player X' => '0' }
+      ]
+
+      interface = Interface.new
+      interface.run(script)
+
+      expected_output = "X |   |  \n  |   |  \n  |   |  "
+      expect(interface.next_message).to eq(expected_output)
+    end
+  end
+
   context 'X wins' do
     it 'shows a winner' do
       script = [
