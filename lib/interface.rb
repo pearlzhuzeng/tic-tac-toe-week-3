@@ -1,22 +1,27 @@
 require_relative '../app/tic_tac_toe_board'
 
 class Interface
-  attr_reader :player, :position
+  attr_reader :board
   attr_accessor :positions
 
   def initialize
     @positions = Array.new(9)
+    @board = TicTacToeBoard.new(@positions)
   end
 
   def run(commands)
-    @player = commands[0].each_key.first[-1]
-    @position = commands[0][commands[0].each_key.first].to_i
+    commands.each_with_index do |command, i|
+      player = i % 2 == 0 ? 'x' : 'o'
+      position = command.values.first.to_i
+      @board.mark(player, position)
+    end   
   end
 
   def next_message
-    @positions[@position] = @player
-    board = TicTacToeBoard.new(@positions)
-    board.mark(@player, @position)
-    board.to_s
+    if @board.winner
+      "#{@board.winner} wins"
+    else
+      @board.to_s
+    end
   end
 end
