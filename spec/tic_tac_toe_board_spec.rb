@@ -14,6 +14,22 @@ RSpec.describe TicTacToeBoard do
     end
   end
 
+  describe '#mark' do
+    context 'when the board gets updated' do
+      it 'updates the board' do
+        positions = [
+          nil, nil, nil,
+          nil, nil, nil,
+          nil, nil, nil,
+        ]
+
+        board = TicTacToeBoard.new(positions)
+        board.mark('x', 0)
+        expect(board.to_s).to eq("X |   |  \n  |   |  \n  |   |  ")
+      end
+    end
+  end
+
   describe '#winner' do
     context 'winning column (column 0)' do
       it 'returns X' do

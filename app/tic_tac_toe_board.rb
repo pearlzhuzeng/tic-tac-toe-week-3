@@ -1,6 +1,8 @@
 require_relative './tic_tac_toe_board_row'
 
 class TicTacToeBoard
+  attr_accessor :positions, :rows
+
   WINNING_CONFIGURATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -14,14 +16,20 @@ class TicTacToeBoard
 
   def initialize(positions)
     @positions = positions
+  end
 
-    @rows = positions.each_slice(3).to_a.map do |p|
+  def mark(player, index)
+    @positions[index] = player
+  end
+
+  def rows
+    @positions.each_slice(3).to_a.map do |p|
       TicTacToeBoardRow.new(p)
     end
   end
 
   def to_s
-    @rows.map(&:to_s).join("\n")
+    rows.map(&:to_s).join("\n")
   end
 
   def winner
