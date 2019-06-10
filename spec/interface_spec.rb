@@ -53,7 +53,7 @@ RSpec.describe Interface do
   end
 
   context 'invalid input' do
-    it 'shows a winner' do
+    it 'shows an error message' do
       script = [
         { 'Move for player X' => 'rook takes queen' }
       ]
