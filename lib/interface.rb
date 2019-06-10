@@ -15,6 +15,8 @@ class Interface
 
   def next_message
     @positions[@position] = @player
-    TicTacToeBoard.new(@positions).to_s
+    board = TicTacToeBoard.new(@positions)
+    board.mark(@player, @position)
+    board.to_s
   end
 end
