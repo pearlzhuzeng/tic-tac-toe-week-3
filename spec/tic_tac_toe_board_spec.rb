@@ -30,6 +30,34 @@ RSpec.describe TicTacToeBoard do
     end
   end
 
+  describe '#draw?' do
+    context 'draw' do
+      it 'returns true' do
+        positions = [
+          'o', 'x', 'o',
+          'x', 'o', 'o',
+          'x', 'o', 'x',
+        ]
+
+         board = TicTacToeBoard.new(positions)
+        expect(board.draw?).to be true
+      end
+    end
+
+     context 'not a draw' do
+      it 'returns false' do
+        positions = [
+          'x', 'x', 'x',
+          nil, 'o', nil,
+          'o', nil, nil
+        ]
+
+         board = TicTacToeBoard.new(positions)
+        expect(board.draw?).to be false
+      end
+    end
+  end
+
   describe '#winner' do
     context 'winning column (column 0)' do
       it 'returns X' do
